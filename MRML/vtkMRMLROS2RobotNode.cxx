@@ -228,6 +228,10 @@ void vtkMRMLROS2RobotNode::InitializeOffsetListAndModelFilesFromURDF(void)
 			  << ", did you source the correct workspace setup.bash?");
 	  }
         }
+        if (filename.rfind("file://", 0) == 0) {
+          filename = filename.substr(7);
+          vtkDebugMacro(<< "Stripped file:// prefix. New filename: " << filename);
+        }
         mNthRobot.mLinkModelFiles[index] = filename;
       } else {
         vtkWarningMacro(<< "InitializeOffsetListAndModelFilesFromURDF: link " <<  index << " has a visual, but not a mesh so it won't be displayed");
